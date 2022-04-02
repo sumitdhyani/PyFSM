@@ -6,7 +6,7 @@ sys.path.insert(0, parentDir)
 from FSM import FSM, FSMState, CompositeState, FinalityReachedException
 
 
-class FSM(FSM):
+class MyFSM(FSM):
     def __init__(self):
         super().__init__(lambda : SC1())
 
@@ -105,11 +105,10 @@ class STerminate(FSMState):
 
 
 def compositeDemo():
-    fsm = FSM()
+    fsm = MyFSM()
     fsm.start()
     try:
-        pass
-        fsm.handleEvent("e1")
+        fsm.handleEvent("e2")
         fsm.handleEvent("e2")
         fsm.handleEvent("e11")
         fsm.handleEvent("e12")

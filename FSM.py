@@ -33,14 +33,12 @@ class FSM:
     def findNextState(self, evt, *args):
         nextState = self.currState.react(evt, *args)
         if EventErrors.unhandledEvent == nextState:
-            childStateMachine = self.currState if issubclass(type(self.currState), FSM) else None
-            while EventErrors.unhandledEvent == nextState and childStateMachine is not None:
-                try:
-                    nextState = childStateMachine.handleEvent(evt, *args)
-                except FinalityReachedException:
-                    #This Exception means that the state is atomic, so we set childStateMachine = None 
-                    childStateMachine = None
-            return EventErrors.unhandledEvent
+            if issubclass(type(self.currState), FSM):#Curr state is a Composite State
+                nextState = self.currState.handleEvent(evt, *args)
+            if EventErrors.unhandledEvent != nextState:
+                return None
+            else:
+                return nextState
         else:
             return nextState
 
