@@ -34,13 +34,14 @@ class FSM:
         nextState = self.currState.react(evt, *args)
         if EventErrors.unhandledEvent == nextState:
             if issubclass(type(self.currState), FSM):#Curr state is a Composite State
-                nextState = self.currState.handleEvent(evt, *args)
+                try:
+                    nextState = self.currState.handleEvent(evt, *args)
+                except FinalityReachedException:
+                    pass
             if EventErrors.unhandledEvent != nextState:
-                return None
-            else:
-                return nextState
-        else:
-            return nextState
+                nextState = None
+        
+        return nextState
 
     def handleStateEntry(self, state):
         res = state.after_entry()
