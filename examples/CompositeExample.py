@@ -6,6 +6,10 @@ sys.path.insert(0, parentDir)
 from FSM import FSM, FSMState, CompositeState, FinalityReachedException
 
 
+#State machines with composite/nested states can be a new concept to some.
+#If that's the case with you, it is encouraged to see the pictorial representation of the
+#State machine(Composite_state_machine.png) represented by this code to better understand it. 
+
 class MyFSM(FSM):
     def __init__(self):
         super().__init__(lambda : SC1())

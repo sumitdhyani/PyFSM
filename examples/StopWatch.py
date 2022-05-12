@@ -6,6 +6,9 @@ parentDir = os.path.dirname(os.getcwd())
 sys.path.insert(0, parentDir) 
 from FSM import FSM, FSMState, FinalityReachedException
 
+#State machines states can be a new concept to some.
+#If that's the case with you, it is encouraged to see the pictorial representation of the
+#State machine(StopWatch.png) represented by this code to better understand it. 
 class StopWatch(FSM):
     def __init__(self):
         super().__init__(lambda : Stopped())
